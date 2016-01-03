@@ -41,7 +41,7 @@ module Jekyll
 
       if url.host.include?('youtube.com')
         # get the YouTube iframe
-        context[:video_id] = params['v']
+        context[:video_id] = params['v'][0]
         video = YOUTUBE % context
       elsif url.host.include?('vimeo.com')
         # get the Vimeo iframe
