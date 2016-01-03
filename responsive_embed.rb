@@ -33,7 +33,6 @@ module Jekyll
     def get_embed_markup(url, params)
       # the URL has a jekyll_embed GET paramter
       context = {
-        video_id: url.path[1..-1],
         scheme: url.scheme
       }
       unless ENV["RESPONSIVE_EMBED_SCHEME"].nil?
@@ -42,9 +41,11 @@ module Jekyll
 
       if url.host.include?('youtube.com')
         # get the YouTube iframe
+        context[:video_id] = params['v']
         video = YOUTUBE % context
       elsif url.host.include?('vimeo.com')
         # get the Vimeo iframe
+        context[:video_id] = url.path[1..-1]
         video = VIMEO % context
       end
       unless video.nil?
